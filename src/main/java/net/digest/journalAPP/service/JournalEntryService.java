@@ -30,7 +30,6 @@ private UserService userService;
         } catch (Exception e) {
             throw new RuntimeException("An error occurred while saving the entry.", e);
         }
-
     }
     public void saveEntry(JournalEntry journalEntry){
         journalEntryRepository.save(journalEntry);
