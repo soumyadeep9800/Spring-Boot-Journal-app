@@ -23,7 +23,7 @@ private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder
         userRepository.save(user);
     }
     public void saveNewUser(User user){
-        System.out.println("Saving user: " + user.getUsername());
+        //System.out.println("Saving user: " + user.getUsername());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Arrays.asList("USER"));
         userRepository.save(user);
@@ -39,6 +39,9 @@ private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder
 
     public void deleteJournalEntryId(ObjectId id){
         userRepository.deleteById(id);
+    }
+    public void deleteByUserName(String userName){
+        userRepository.deleteByUsername(userName);
     }
 
     public User findByUserName(String userName){

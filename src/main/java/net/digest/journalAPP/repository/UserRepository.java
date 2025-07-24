@@ -11,4 +11,5 @@ public interface UserRepository extends MongoRepository<User, ObjectId> {
 //      Username ➜ So it maps to the username field in the User class.
 //      This is called a Derived Query Method — Spring generates the query automatically based on the method name.
       User findByUsername(String username);
+      User deleteByUsername(String username);
 }

@@ -6,6 +6,8 @@ import net.digest.journalAPP.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -18,30 +20,24 @@ public class UserControllerDB {
     @Autowired
      private UserService userService;
 
-    @GetMapping
-    public List<User> getAll(){
-        return userService.getAll();
-    }
-
-    @PostMapping
-    public void createUser(@RequestBody User user){
-        userService.saveNewUser(user);
-    }
-
-    @PutMapping("/{userName}")
-    public ResponseEntity<?> updateUser(@RequestBody User user, @PathVariable String userName){
-        try {
+    @PutMapping
+    public ResponseEntity<?> updateUser(@RequestBody User user){
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String userName = authentication.getName();
+            System.out.println("userName"+ userName);
             User userInDb = userService.findByUserName(userName);
-            if (userInDb != null) {
-                userInDb.setUsername(user.getUsername());
-                userInDb.setPassword(user.getPassword());
-                userService.saveEntry(userInDb);
-                //return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-                return ResponseEntity.ok("User updated successfully");
-            }
-            else return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User Not Found");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating user: " + e.getMessage());
-        }
+            userInDb.setUsername(user.getUsername());
+            userInDb.setPassword(user.getPassword());
+            userService.saveNewUser(userInDb);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            //return ResponseEntity.ok("User updated successfully");
+    }
+    @DeleteMapping
+     public ResponseEntity<?> DeleteUser(){
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String userName = authentication.getName();
+            //System.out.println("userName "+ userName);
+            userService.deleteByUserName(userName);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
