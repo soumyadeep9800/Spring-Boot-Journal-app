@@ -4,6 +4,7 @@ import net.digest.journalAPP.service.UserDetailsServiceimpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,9 +23,13 @@ public class SpringSecurity {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
+                .csrf(csrf -> csrf.disable()) // ✅ disables CSRF check for POST requests
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/hello").permitAll()
-                        .anyRequest().authenticated()
+                        //.requestMatchers("/user").permitAll()
+                       // .requestMatchers(HttpMethod.POST, "/user").permitAll()
+                        //.anyRequest().authenticated()
+                        .requestMatchers("/journal/**").authenticated()
+                        .anyRequest().permitAll()
                 )
                 .formLogin(Customizer.withDefaults())
                 .authenticationProvider(daoAuthenticationProvider());
