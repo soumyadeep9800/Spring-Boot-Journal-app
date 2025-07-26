@@ -71,7 +71,7 @@ public class JournalEntryControllerDB {
         String userName = authentication.getName();
         System.out.println(userName);
         journalEntryService.deleteJournalEntryId(myId,userName);
-        return new ResponseEntity<>("Delete Successfully!",HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/id/{myId}")

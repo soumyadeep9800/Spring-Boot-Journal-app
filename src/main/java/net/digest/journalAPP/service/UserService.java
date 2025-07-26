@@ -30,6 +30,13 @@ private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder
         return user;
     }
 
+    public User saveNewAdmin(User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(Arrays.asList("USER","ADMIN"));
+        userRepository.save(user);
+        return user;
+    }
+
     public List<User> getAll(){
         return userRepository.findAll();
     }

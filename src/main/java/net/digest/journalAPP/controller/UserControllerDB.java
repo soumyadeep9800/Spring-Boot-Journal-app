@@ -38,6 +38,6 @@ public class UserControllerDB {
             String userName = authentication.getName();
             //System.out.println("userName "+ userName);
             userService.deleteByUserName(userName);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT); //NO_CONTENT does not have body
     }
 }
