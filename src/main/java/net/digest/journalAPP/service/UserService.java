@@ -22,11 +22,12 @@ private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder
     public void saveEntry(User user){
         userRepository.save(user);
     }
-    public void saveNewUser(User user){
+    public User saveNewUser(User user){
         //System.out.println("Saving user: " + user.getUsername());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Arrays.asList("USER"));
         userRepository.save(user);
+        return user;
     }
 
     public List<User> getAll(){

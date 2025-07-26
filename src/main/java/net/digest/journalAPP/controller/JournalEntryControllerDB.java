@@ -26,12 +26,6 @@ public class JournalEntryControllerDB {
     @Autowired
     private UserService userService;
 
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<String> handleException(Exception ex) {
-//        ex.printStackTrace(); // log exact error
-//        return ResponseEntity.badRequest().body("Error: " + ex.getMessage());
-//    }
-
     @GetMapping
     public ResponseEntity<?> getAllJournalEntriesOfUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -39,7 +33,7 @@ public class JournalEntryControllerDB {
         User user =userService.findByUserName(userName);
         List<JournalEntry> all= user.getJournalEntries();
         if(!all.isEmpty()) return new ResponseEntity<>(all,HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Journal-Entry Not_FOUND",HttpStatus.NOT_FOUND);
     }
 
     @PostMapping
@@ -75,8 +69,9 @@ public class JournalEntryControllerDB {
     public ResponseEntity<?> deleteEntryById(@PathVariable ObjectId myId){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
+        System.out.println(userName);
         journalEntryService.deleteJournalEntryId(myId,userName);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>("Delete Successfully!",HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/id/{myId}")
