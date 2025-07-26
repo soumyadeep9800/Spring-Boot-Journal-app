@@ -28,11 +28,11 @@ public class SpringSecurity {
                         //.requestMatchers("/user").permitAll()
                        // .requestMatchers("/user").permitAll()
                         //.anyRequest().authenticated()
-                        .requestMatchers("/journal/**","/user/**").authenticated()
+                        .requestMatchers("/user/**").authenticated()
                         .anyRequest().permitAll()
                 )
 //                .sessionManagement(session -> session
-//                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // No session
+//                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // No session   "/journal/**",
 //                )
                 .httpBasic(Customizer.withDefaults()) // ✅ It allows the client to send credentials (username and password) in the Authorization header.
                 .authenticationProvider(daoAuthenticationProvider());
