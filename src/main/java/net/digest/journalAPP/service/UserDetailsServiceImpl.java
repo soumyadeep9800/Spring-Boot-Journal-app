@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserDetailsServiceimpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
