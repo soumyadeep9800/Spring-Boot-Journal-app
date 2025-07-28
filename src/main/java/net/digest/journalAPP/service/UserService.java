@@ -40,18 +40,15 @@ private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder
     public List<User> getAll(){
         return userRepository.findAll();
     }
-
     public Optional<User> findById(ObjectId id){
         return userRepository.findById(id);
     }
-
     public void deleteJournalEntryId(ObjectId id){
         userRepository.deleteById(id);
     }
     public void deleteByUserName(String userName){
         userRepository.deleteByUsername(userName);
     }
-
     public User findByUserName(String userName){
         return userRepository.findByUsername(userName);
     }
