@@ -2,7 +2,6 @@ package net.digest.journalAPP.service;
 
 import net.digest.journalAPP.entity.User;
 import net.digest.journalAPP.repository.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
