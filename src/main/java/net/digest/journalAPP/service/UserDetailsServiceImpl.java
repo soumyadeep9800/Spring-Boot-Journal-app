@@ -16,9 +16,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException { //Implements UserDetailsService, which forces us to define the loadUserByUsername() method.
         User user = userRepository.findByUsername(username);
-        if (user != null) {
+        if (user != null) { //Creates a UserDetails object using the UserBuilder from Spring Security.
             UserBuilder builder = org.springframework.security.core.userdetails.User.builder()
                     .username(user.getUsername())
                     .password(user.getPassword())
