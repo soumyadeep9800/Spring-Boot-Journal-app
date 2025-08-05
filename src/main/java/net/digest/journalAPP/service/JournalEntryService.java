@@ -1,6 +1,5 @@
 package net.digest.journalAPP.service;
 
-
 import net.digest.journalAPP.entity.JournalEntry;
 import net.digest.journalAPP.entity.User;
 import net.digest.journalAPP.repository.JournalEntryRepository;

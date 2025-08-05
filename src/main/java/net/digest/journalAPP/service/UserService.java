@@ -1,8 +1,11 @@
 package net.digest.journalAPP.service;
 
+import lombok.extern.slf4j.Slf4j;
 import net.digest.journalAPP.entity.User;
 import net.digest.journalAPP.repository.UserRepository;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +15,7 @@ import java.util.*;
 //controller ---> service ---> repository
 
 @Component
+@Slf4j
 public class UserService {
 
 @Autowired
@@ -19,15 +23,23 @@ private UserRepository userRepository;
 
 private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+//private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+
     public void saveEntry(User user){
         userRepository.save(user);
     }
     public User saveNewUser(User user){
         //System.out.println("Saving user: " + user.getUsername());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(Arrays.asList("USER"));
-        userRepository.save(user);
-        return user;
+        try{
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRole(Arrays.asList("USER"));
+            userRepository.save(user);
+            return user;
+        } catch (Exception e) {
+            //logger.error("Error occurred while saving user", e);
+            log.error("Error occurred while saving user", e);
+            throw new RuntimeException("Failed to save user");
+        }
     }
 
     public User saveNewAdmin(User user){
