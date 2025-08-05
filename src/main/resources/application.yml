@@ -14,3 +14,8 @@ spring:
     name: Journal-App
   profiles:
     active: dev
+
+#logging:
+#  level:
+##    net.digest.journalAPP: DEBUG
+#     net.digest.journalAPP: TRACE

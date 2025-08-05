@@ -37,7 +37,11 @@ private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder
             return user;
         } catch (Exception e) {
             //logger.error("Error occurred while saving user", e);
-            log.error("Error occurred while saving user", e);
+            log.error("Error occurred while saving user");
+            log.info("Error occurred while saving user");
+            log.warn("Error occurred while saving user");
+            log.trace("Error occurred while saving user");
+            log.debug("Error occurred while saving user");
             throw new RuntimeException("Failed to save user");
         }
     }
