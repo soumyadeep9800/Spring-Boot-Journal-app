@@ -7,11 +7,17 @@
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
-    <appender name="myFileAppender" class="ch.qos.logback.core.FileAppender">
+    <appender name="myFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file> journalApp.log </file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>journalApp.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+<!--            <fileNamePattern>journalApp.%d{yy-MM-dd_HH-mm}.%i.log</fileNamePattern>--> // per minute
+            <maxFileSize> 10MB </maxFileSize>
+            <maxHistory> 10 </maxHistory>
+        </rollingPolicy>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
-        <file> journalApp.log </file>
     </appender>
 
     <!-- Set the log level for your application package -->
