@@ -8,3 +8,9 @@
 #      port: 27017
 #      database: journaldb
 #      auto-index-creation: true
+
+spring:
+  application:
+    name: Journal-App
+  profiles:
+    active: dev
