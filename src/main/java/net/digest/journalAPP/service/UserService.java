@@ -29,19 +29,13 @@ private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder
         userRepository.save(user);
     }
     public User saveNewUser(User user){
-        //System.out.println("Saving user: " + user.getUsername());
         try{
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setRole(Arrays.asList("USER"));
             userRepository.save(user);
             return user;
         } catch (Exception e) {
-            //logger.error("Error occurred while saving user", e);
             log.error("Error occurred while saving user");
-            log.info("Error occurred while saving user");
-            log.warn("Error occurred while saving user");
-            log.trace("Error occurred while saving user");
-            log.debug("Error occurred while saving user");
             throw new RuntimeException("Failed to save user");
         }
     }
