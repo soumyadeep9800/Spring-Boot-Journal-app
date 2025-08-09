@@ -1,27 +1,35 @@
 package net.digest.journalAPP.service;
 
-
 import net.digest.journalAPP.api.response.WeatherResponse;
+import net.digest.journalAPP.cache.AppCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-@Component
+@Service
 public class WeatherService {
     @Value("${weather.api.key}")
     private String apiKey;
-    private static final String API= "http://api.weatherstack.com/current?access_key=API_KEY&query=CITY";
+
+    @Autowired
+    private AppCache appCache;
 
     @Autowired
     private RestTemplate restTemplate;
 
-    public WeatherResponse getWeather(String city){
-        String finalApi=API.replace("CITY",city).replace("API_KEY",apiKey);
-        ResponseEntity<WeatherResponse> response=restTemplate.exchange(finalApi, HttpMethod.GET,null, WeatherResponse.class);
-        WeatherResponse body=response.getBody();
-        return body;
+    public WeatherResponse getWeather(String city) {
+        String apiTemplate = appCache.get("weather_api");
+        if (apiTemplate == null) throw new IllegalStateException("Config 'weather_api' not found in cache");
+
+        String finalApi = apiTemplate
+                .replace("<city>", city)
+                .replace("<apiKey>", apiKey);
+        ResponseEntity<WeatherResponse> response = restTemplate.exchange(finalApi, HttpMethod.GET, null, WeatherResponse.class);
+        return response.getBody();
     }
 }
+
