@@ -1,6 +1,9 @@
 package net.digest.journalAPP.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -9,6 +12,27 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import jakarta.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
+
+@Document(collection = "users")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class User {
+    @Id
+    private ObjectId id;
+    @Indexed(unique = true)
+    @NotBlank
+    private String username;
+    private String email;
+    private boolean sentimentAnalysis;
+    @NotBlank
+    private String password;
+    @DBRef
+    private  List<JournalEntry> journalEntries=new ArrayList<>();
+    private List<String> role;
+}
+
 
 //@Document(collection = "users")
 //public class User {
@@ -59,18 +83,3 @@ import java.util.List;
 //    }
 //    // Optional: toString(), equals(), and hashCode() if you need exact behavior of @Data
 //}
-
-@Document(collection = "users")
-@Data
-public class User {
-    @Id
-    private ObjectId id;
-    @Indexed(unique = true)
-    @NotBlank
-    private String username;
-    @NotBlank
-    private String password;
-    @DBRef
-    private  List<JournalEntry> journalEntries=new ArrayList<>();
-    private List<String> role;
-}
