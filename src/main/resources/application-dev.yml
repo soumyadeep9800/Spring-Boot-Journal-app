@@ -11,6 +11,17 @@ spring:
       database: journaldb
       auto-index-creation: true
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: soumyadeepghosh9800@gmail.com
+    password: rpsnyxpizcuizerr
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 weather:
   api:
     key: 377916ec17580a35ae18718f6da1db00
