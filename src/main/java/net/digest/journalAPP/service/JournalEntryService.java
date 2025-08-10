@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 //controller ---> service ---> repository
-@Component
-//@Service
+//@Component
+@Service
 public class JournalEntryService{
 
 @Autowired
