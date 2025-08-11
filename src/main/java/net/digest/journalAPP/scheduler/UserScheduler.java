@@ -27,8 +27,8 @@ public class UserScheduler {
     @Autowired
     private AppCache appCache;
 
-    //@Scheduled(cron = "0 0 9 * * SUN")
-    @Scheduled(cron = "0 * * ? * *")
+    @Scheduled(cron = "0 0 9 * * SUN")
+    //@Scheduled(cron = "0 * * ? * *")
     public void fetchUserAndSendSaMail(){
         List<User> users = userRespository.getUserForSA();
         for (User user: users){
