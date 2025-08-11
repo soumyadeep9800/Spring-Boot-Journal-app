@@ -5,14 +5,12 @@ import net.digest.journalAPP.entity.User;
 import net.digest.journalAPP.repository.JournalEntryRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 //controller ---> service ---> repository
-//@Component
 @Service
 public class JournalEntryService{
 
@@ -25,9 +23,7 @@ private UserService userService;
     public void saveEntryTwoParameter(JournalEntry journalEntry, String userName){
         try{
             User user =userService.findByUserName(userName);
-            //System.out.println("User: " + user);
             JournalEntry save=journalEntryRepository.save(journalEntry);
-            //System.out.println(save);
             user.getJournalEntries().add(save);
             userService.saveEntry(user);
         } catch (Exception e) {

@@ -1,9 +1,23 @@
 package net.digest.journalAPP.entity;
 import java.time.LocalDateTime;
 import lombok.*;
+import net.digest.journalAPP.enums.Sentiment;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "journal_entries")
+@Data
+@NoArgsConstructor
+public class JournalEntry {
+    @Id
+    private ObjectId id;
+    private String title;
+    private String content;
+    private LocalDateTime date;
+    private Sentiment sentiment;
+}
+
 
 //@Document(collection = "journal_entries")
 //public class JournalEntry {
@@ -45,14 +59,3 @@ import org.springframework.data.mongodb.core.mapping.Document;
 //        this.date = date;
 //    }
 //}
-
-@Document(collection = "journal_entries")
-@Data
-@NoArgsConstructor
-public class JournalEntry {
-    @Id
-    private ObjectId id;
-    private String title;
-    private String content;
-    private LocalDateTime date;
-}
