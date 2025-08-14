@@ -4,6 +4,9 @@ server:
 #    context-path: /journal
 
 spring:
+  redis:
+    host: localhost
+    post: 6379
   data:
     mongodb:
       host: localhost
