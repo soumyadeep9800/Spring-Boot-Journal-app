@@ -6,7 +6,7 @@ server:
 spring:
   redis:
     host: localhost
-    post: 6379
+    port: 6379
   data:
     mongodb:
       host: localhost
@@ -25,6 +25,37 @@ spring:
           auth: true
           starttls:
             enable: true
+
+  kafka:
+    bootstrap-servers: pkc-921jm.us-east-2.aws.confluent.cloud:9092
+    properties:
+      sasl:
+        mechanism: PLAIN
+        jaas:
+          config: >
+            org.apache.kafka.common.security.plain.PlainLoginModule required
+            username='KAN75WFVKYPUEAP5'
+            password='cfltMCLebdTeCYIdEsAswSv3kQ0oPMHM8J9Z8q/VGgzT3hjd9K1PLgJa/epeThfg';
+      security.protocol: SASL_SSL
+      session.timeout.ms: 45000
+
+    client-id: ccloud-springboot-client-51db6751-2747-4e7a-9168-2ec44bfd0923
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+
+    consumer:
+      group-id: weekly-sentiment-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: net.digest.journalAPP.model
+
 weather:
   api:
     key: 377916ec17580a35ae18718f6da1db00
