@@ -39,17 +39,16 @@ spring:
       security.protocol: SASL_SSL
       session.timeout.ms: 45000
 
-    client-id: ccloud-springboot-client-51db6751-2747-4e7a-9168-2ec44bfd0923
+#    client-id: ccloud-springboot-client-51db6751-2747-4e7a-9168-2ec44bfd0923
 
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-      acks: all
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
     consumer:
       group-id: weekly-sentiment-group
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring:
           json:

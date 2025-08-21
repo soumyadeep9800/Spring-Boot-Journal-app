@@ -29,7 +29,7 @@ public class UserControllerDB {
     public ResponseEntity<?> updateUser(@RequestBody User user){
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String userName = authentication.getName();
-            System.out.println("userName"+ userName);
+            System.out.println("userName "+ userName);
             User userInDb = userService.findByUserName(userName);
             userInDb.setUsername(user.getUsername());
             userInDb.setPassword(user.getPassword());
