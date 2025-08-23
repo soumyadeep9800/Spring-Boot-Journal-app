@@ -44,3 +44,11 @@ public class JwtFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 }
+//🔹 In short (step-by-step debug)
+//Client sends request with JWT.
+//JwtFilter extracts token.
+//JwtUtil validates + decodes token.
+//Load user details from DB.
+//If valid → build authentication → set in SecurityContext.
+//Spring Security checks authorization rules.
+//Controller runs if allowed.

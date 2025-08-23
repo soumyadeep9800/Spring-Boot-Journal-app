@@ -16,19 +16,19 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
 
-    public String generateToken(String username){
+    public String generateToken(String username) {
         Map<String, Object> claims = new HashMap<>();
         return createToken(claims, username);
     }
 
-    private String createToken(Map<String, Object> claims, String subject){//eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyYW0iLCJpYXQiOjE3NTU4NzU3NzgsImV4cCI6MTc1NTg3ODc3OH0.P68Dwa5r5CI048rfFhNWzqrg5tPN4dNNOeZAnN3_QdA
+    private String createToken(Map<String, Object> claims, String subject) {//eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyYW0iLCJpYXQiOjE3NTU4NzU3NzgsImV4cCI6MTc1NTg3ODc3OH0.P68Dwa5r5CI048rfFhNWzqrg5tPN4dNNOeZAnN3_QdA
         return Jwts.builder()
                 .claims(claims)
                 .subject(subject)
                 .header().empty().add("typ", "JWT")
                 .and()
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 1000*60*50)) //50 minute
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 50)) //50 minute
                 .signWith(getSigningKey())
                 .compact();
     }
@@ -53,6 +53,7 @@ public class JwtUtil {
     private Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
+
     public Boolean validateToken(String token) {
         return !isTokenExpired(token);
     }
